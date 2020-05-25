@@ -10,11 +10,11 @@ function LoginHeader (props) {
     }
 
     return (
-        <TouchableWithoutFeedback onPress={ handleGoBack }>
-            <View style={userAccountStyles.header}>
+        <View style={userAccountStyles.header}>
+            <TouchableWithoutFeedback onPress={ handleGoBack }>
                 <Icon name={'ios-arrow-round-back'} style={userAccountStyles.goBackButtton} />
-            </View>
-        </TouchableWithoutFeedback>
+            </TouchableWithoutFeedback>
+        </View>
     )
 }
 

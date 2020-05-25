@@ -1,17 +1,43 @@
 
-const initialState  = {
-    userAccount: "",
-    currentAction: "login",
-    loginNavGoBack: "false"
-}
+// const inState = {
+//   authToken: false,
+//   authRequestProcessing: false,
+//   userAccount: {
+//     name: "",
+//     surname: "",
+//     email: "",
+//     password: "",
+//     serverMessage: "",
+//   },
+// }
 
-const reducer = (state = initialState, action) => {
-    switch (action.type) {
-      case "REGISTER_NEW_ACCOUNT" :
-        return { currentAction: "register new account" }
-      default:
-        return state
-    }
-  } 
+const reducer = (state = {}, action) => {
+  switch (action.type) {
+    case "USER_AUTH_START_PROCESSING_DATA":
+      return { 
+        ...state,  
+        authRequestProcessing: true,
+        };
+    case "USER_AUTH_STOP_PROCESSING_DATA":
+      return { 
+        ...state,
+        authRequestProcessing: false,
+      };
+    case "REGISTER_NEW_ACCOUNT_SUCCESS":
+        return { 
+          ...state,
+          serverMessage: action.message,
+          authToken: action.token,
+        }
+    case "AUTH_REQUST_FAILED":
+      return { 
+        ...state,
+        serverMessage: action.message,
+        authToken: false,
+      }
+    default:
+      return state
+  }
+} 
 
 export default reducer;

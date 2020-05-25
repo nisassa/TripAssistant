@@ -5,10 +5,14 @@ export const userAccountStyles = StyleSheet.create({
     flex: 1,
     flexGrow: 1,
     flexDirection: 'column',
-    justifyContent: 'space-between',
-    backgroundColor: 'pink',
-    padding: 40,
     justifyContent: 'center',
+    backgroundColor: 'pink',
+    paddingHorizontal: 40,
+    paddingTop: 0,  
+    justifyContent: 'center',
+    zIndex: 9,
+    overflow: 'hidden'
+
   },
   currentAction: {
     fontSize: 20,
@@ -29,7 +33,9 @@ export const userAccountStyles = StyleSheet.create({
   },
   goBackButtton: {
     fontSize: 50,
-    justifyContent: "flex-start",
+    paddingHorizontal: 20,
+    width: 80,
+    alignSelf: "center"
   },
   continueButton: {
     fontSize: 20,
@@ -43,7 +49,6 @@ export const userAccountStyles = StyleSheet.create({
     fontSize: 18,
     paddingHorizontal: 15,
     paddingVertical: 10,
-    marginTop: 10,
     borderColor: "#dcdcdc",
     borderWidth: 1,
     backgroundColor: "#fff"
@@ -60,9 +65,28 @@ export const userAccountStyles = StyleSheet.create({
     textAlign: "center"
   },
   header: {
-    padding:0,
-    position: 'absolute',
-    top: 20,
-    paddingHorizontal: 40
-  }
+    position: "absolute",
+    top: 0,
+    paddingTop: 30,
+    zIndex: 10,
+    backgroundColor: "pink",
+    alignSelf: 'center',
+    width: "100%"
+  },
+  errorText: {
+    margin: 5,
+    color: 'indianred'
+  },
+  errorMessage: {
+    fontSize: 18,
+    color: "indianred",
+    textAlign: "center",
+    justifyContent: "center"
+  },
+  successMessage: {
+    fontSize: 18,
+    color: "darkgreen",
+    textAlign: "center",
+    justifyContent: "center"
+  },
 });

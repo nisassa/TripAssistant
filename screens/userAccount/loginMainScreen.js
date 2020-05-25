@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
     Text, 
-    ScrollView,
+    KeyboardAvoidingView,
     TouchableOpacity
   } from 'react-native';
 import { 
@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 function LoginMainScreen(props) {
     
   return (
-    <ScrollView contentContainerStyle={userAccountStyles.container}>
+    <KeyboardAvoidingView style={userAccountStyles.container}>
       <Text style={userAccountStyles.containerTitle}>Sign up with:</Text>
       <TouchableOpacity >  
           <Text style={userAccountStyles.button}>Facebook</Text>
@@ -27,19 +27,17 @@ function LoginMainScreen(props) {
       <TouchableOpacity onPress={() => props.navigation.navigate("Login") } >
           <Text style={userAccountStyles.button}>Log in</Text>
       </TouchableOpacity>
-    </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
 function mapStateToProps (state) {
   return {
-    currentAction: state.currentAction,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    registerNewAccount : () => dispatch({type: 'REGISTER_NEW_ACCOUNT'}),
   }
 }
 
