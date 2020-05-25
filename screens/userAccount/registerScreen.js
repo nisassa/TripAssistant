@@ -13,6 +13,7 @@ import LoginHeader from './header';
 import { connect } from 'react-redux';
 import { Formik } from "formik";
 import * as yup from 'yup';
+import AnimatedLoader from "react-native-animated-loader";
 
 function RegisterScreen(props) {
   const registerSchema = yup.object({
@@ -28,13 +29,6 @@ function RegisterScreen(props) {
     Keyboard.dismiss()
     props.registerNewAccount(userAccount);
   }
-  
-  const displayProccessingDataText = () => {
-    if (props.authRequestProcessing === true) {
-      return <Text style={ userAccountStyles.containerTitle }>processing data...</Text>
-    }
-  }
-
   const showServerMessage = () => {
     if (props.authToken !== undefined && props.authToken !== false) {
       return <Text style={ userAccountStyles.successMessage }>Redirecting to the secure area: { props.authToken }</Text>
@@ -54,9 +48,15 @@ function RegisterScreen(props) {
       <KeyboardAvoidingView 
         style={userAccountStyles.container}  
         behavior="padding" >
+        <AnimatedLoader
+          visible={props.authRequestProcessing}
+          overlayColor="rgba(255,255,255,0.75)"
+          source={require("../../assets/lottiefiles/loader.json")}
+          animationStyle={userAccountStyles.lottie}
+          speed={1}
+        />
         <LoginHeader navigation={props.navigation} />
         <Text style={ userAccountStyles.containerTitle }>Create your account</Text>
-        { displayProccessingDataText() }
         { showServerMessage() }
         <Formik
             validationSchema={registerSchema}

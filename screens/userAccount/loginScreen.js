@@ -13,6 +13,7 @@ import LoginHeader from './header';
 import { connect } from 'react-redux';
 import { Formik } from "formik";
 import * as yup from 'yup';
+import AnimatedLoader from "react-native-animated-loader";
 
 function LoginScreen(props) {
   const loginSchema = yup.object({
@@ -25,12 +26,6 @@ function LoginScreen(props) {
   const onFormSubmit = (userAccount) => {
     Keyboard.dismiss()
     props.logInAttemt(userAccount)
-  }
-  
-  const displayProccessingDataText = () => {
-    if (props.authRequestProcessing === true) {
-      return <Text style={ userAccountStyles.containerTitle }>processing data...</Text>
-    }
   }
 
   const showServerMessage = () => {
@@ -52,9 +47,15 @@ function LoginScreen(props) {
       <KeyboardAvoidingView 
         style={userAccountStyles.container}  
         behavior="padding" >
+        <AnimatedLoader
+          visible={props.authRequestProcessing}
+          overlayColor="rgba(255,255,255,0.75)"
+          source={require("../../assets/lottiefiles/loader.json")}
+          animationStyle={userAccountStyles.lottie}
+          speed={1}
+        />
         <LoginHeader navigation={props.navigation} />
         <Text style={ userAccountStyles.containerTitle }>Log in</Text>
-        { displayProccessingDataText() }
         { showServerMessage() }
         <Formik
           validationSchema={loginSchema}

@@ -89,4 +89,9 @@ export const userAccountStyles = StyleSheet.create({
     textAlign: "center",
     justifyContent: "center"
   },
+  lottie: {
+    width: 100,
+    height: 100
+  }
+  
 });

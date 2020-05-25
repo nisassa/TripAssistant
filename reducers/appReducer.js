@@ -7,7 +7,6 @@
 //     surname: "",
 //     email: "",
 //     password: "",
-//     serverMessage: "",
 //   },
 // }
 
@@ -23,6 +22,13 @@ const reducer = (state = {}, action) => {
         ...state,
         authRequestProcessing: false,
       };
+    case "RESET_SERVER_MESSAGE":
+      return { 
+        ...state,
+        serverMessage: "",
+        authToken: false
+      };
+      
     case "REGISTER_NEW_ACCOUNT_SUCCESS":
         return { 
           ...state,
