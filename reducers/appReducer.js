@@ -1,15 +1,3 @@
-
-// const inState = {
-//   authToken: false,
-//   authRequestProcessing: false,
-//   userAccount: {
-//     name: "",
-//     surname: "",
-//     email: "",
-//     password: "",
-//   },
-// }
-
 const reducer = (state = {}, action) => {
   switch (action.type) {
     case "USER_AUTH_START_PROCESSING_DATA":
@@ -25,10 +13,9 @@ const reducer = (state = {}, action) => {
     case "RESET_SERVER_MESSAGE":
       return { 
         ...state,
-        serverMessage: "",
+        serverMessage: undefined,
         authToken: false
       };
-      
     case "REGISTER_NEW_ACCOUNT_SUCCESS":
         return { 
           ...state,

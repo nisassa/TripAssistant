@@ -6,7 +6,7 @@ export const userAccountStyles = StyleSheet.create({
     flexGrow: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: 'pink',
+    backgroundColor: '#f8f9fa',
     paddingHorizontal: 40,
     paddingTop: 0,  
     justifyContent: 'center',
@@ -18,7 +18,7 @@ export const userAccountStyles = StyleSheet.create({
     fontSize: 20,
     color: 'black',
     fontWeight: 'bold',
-    backgroundColor: 'pink',
+    backgroundColor: '#f8f9fa',
     padding: 20
   },
   button: {
@@ -69,7 +69,7 @@ export const userAccountStyles = StyleSheet.create({
     top: 0,
     paddingTop: 30,
     zIndex: 10,
-    backgroundColor: "pink",
+    backgroundColor: "#f8f9fa",
     alignSelf: 'center',
     width: "100%"
   },

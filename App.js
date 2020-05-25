@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginMavigator from './routes/loginNav';
+import AppNavigator from './routes/index';
 import { Provider } from 'react-redux';
 import createStore from './utils/createStore';
 import sagas from './sagas/index';
@@ -11,7 +11,7 @@ store.runSaga(sagas)
 export default function App() {
   return (
     <Provider store={store}>
-      <LoginMavigator />
+      <AppNavigator />
     </Provider>
   );
 }

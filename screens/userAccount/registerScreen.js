@@ -6,7 +6,8 @@ import {
     TouchableOpacity,
     KeyboardAvoidingView,
     Keyboard,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    Alert,
   } from 'react-native';
 import { userAccountStyles } from '../../assets/styles/userAccount/login';
 import LoginHeader from './header';
@@ -14,6 +15,7 @@ import { connect } from 'react-redux';
 import { Formik } from "formik";
 import * as yup from 'yup';
 import AnimatedLoader from "react-native-animated-loader";
+import AppMainNav from '../../routes/appNav';
 
 function RegisterScreen(props) {
   const registerSchema = yup.object({
@@ -29,19 +31,25 @@ function RegisterScreen(props) {
     Keyboard.dismiss()
     props.registerNewAccount(userAccount);
   }
+  
   const showServerMessage = () => {
-    if (props.authToken !== undefined && props.authToken !== false) {
-      return <Text style={ userAccountStyles.successMessage }>Redirecting to the secure area: { props.authToken }</Text>
-    }
-    if (props.authRequestProcessing === false) {
-      if (props.authToken === false) {
-        return <Text style={ userAccountStyles.errorMessage }>{ props.serverMessage }</Text>
-      } else {
-        return <Text style={ userAccountStyles.successMessage }>{ props.serverMessage }</Text>
-      }
+    if (props.authRequestProcessing === false && props.authToken === false && props.serverMessage !== undefined) {
+      setTimeout(function() {
+        Alert.alert(
+          "Something went wrong",
+          props.serverMessage,
+          { cancelable: false }
+        )
+      }, 500)
     }
   }
   
+  if (props.authToken !== undefined && props.authToken !== false) {
+    return (
+      <AppMainNav />
+    )
+  }
+
   return (
     <TouchableWithoutFeedback
       onPress={Keyboard.dismiss} accessible={false} >

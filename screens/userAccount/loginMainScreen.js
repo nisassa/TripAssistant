@@ -7,7 +7,6 @@ import {
 import { 
   userAccountStyles 
 } from '../../assets/styles/userAccount/login';
-import { connect } from 'react-redux';
 
 function LoginMainScreen(props) {
     
@@ -30,18 +29,4 @@ function LoginMainScreen(props) {
     </KeyboardAvoidingView>
   );
 }
-
-function mapStateToProps (state) {
-  return {
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LoginMainScreen)
+export default LoginMainScreen

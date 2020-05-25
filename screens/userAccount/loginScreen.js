@@ -6,7 +6,8 @@ import {
     TouchableOpacity,
     TouchableWithoutFeedback,
     Keyboard,
-    View
+    View,
+    Alert
   } from 'react-native';
 import { userAccountStyles } from '../../assets/styles/userAccount/login';
 import LoginHeader from './header';
@@ -14,11 +15,12 @@ import { connect } from 'react-redux';
 import { Formik } from "formik";
 import * as yup from 'yup';
 import AnimatedLoader from "react-native-animated-loader";
+import AppMainNav from '../../routes/appNav';
 
 function LoginScreen(props) {
   const loginSchema = yup.object({
     email:    yup.string().email().required("Email is a required field"),
-    password: yup.string().required('No password provided.') 
+    password: yup.string().required() 
               .min(6, 'Password is too short - should be 6 chars minimum.')
               .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.')
   })
@@ -29,18 +31,23 @@ function LoginScreen(props) {
   }
 
   const showServerMessage = () => {
-    if (props.authToken !== undefined && props.authToken !== false) {
-      return <Text style={ userAccountStyles.successMessage }>Redirecting to the secure area: { props.authToken }</Text>
-    }
-    if (props.authRequestProcessing === false) {
-      if (props.authToken === false) {
-        return <Text style={ userAccountStyles.errorMessage }>{ props.serverMessage }</Text>
-      } else {
-        return <Text style={ userAccountStyles.successMessage }>{ props.serverMessage }</Text>
-      }
+    if (props.authRequestProcessing === false && props.authToken === false && props.serverMessage !== undefined) {
+      setTimeout(function() {
+        Alert.alert(
+          "Something went wrong",
+          props.serverMessage,
+          { cancelable: false }
+        )
+      }, 500)
     }
   }
 
+  if (props.authToken !== undefined && props.authToken !== false) {
+    return (
+      <AppMainNav />
+    )
+  }
+ 
   return (
     <TouchableWithoutFeedback
       onPress={Keyboard.dismiss} accessible={false} >
