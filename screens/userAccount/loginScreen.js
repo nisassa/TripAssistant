@@ -105,9 +105,9 @@ function LoginScreen(props) {
 function mapStateToProps (state, props) {
   return {
     navigation: props.navigation,
-    authToken: state.authToken,
-    authRequestProcessing: state.authRequestProcessing,
-    serverMessage: state.serverMessage, 
+    authToken: state.userAuthReducer.authToken,
+    authRequestProcessing: state.userAuthReducer.authRequestProcessing,
+    serverMessage: state.userAuthReducer.serverMessage, 
   }
 }
 

@@ -1,4 +1,14 @@
-const reducer = (state = {}, action) => {
+import { fromJS } from 'immutable'
+
+export const initialState = fromJS({
+  userAccount: {},
+  authToken: false,
+  authRequestProcessing: false,
+  serverMessage: undefined
+})
+
+
+const userAuthReducer = (state = initialState, action) => {
   switch (action.type) {
     case "USER_AUTH_START_PROCESSING_DATA":
       return { 
@@ -33,4 +43,4 @@ const reducer = (state = {}, action) => {
   }
 } 
 
-export default reducer;
+export default userAuthReducer;

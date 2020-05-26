@@ -9,4 +9,37 @@ export const globalStyles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 40
   },
+  touchableOpacityCenter: {
+    borderWidth:1,
+    borderColor:'darkgray',
+    alignItems:'center',
+    justifyContent:'center',
+    width: 50,
+    height: 50,
+    backgroundColor:'#fff',
+    borderRadius: 50,
+    alignSelf: 'flex-end',
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    elevation: 4,
+  },
+  addButton: {
+    flex: 1,
+    flexDirection: "row",
+    alignSelf: "center",
+  },
+  goBackButtton: {
+    fontSize: 50,
+    paddingHorizontal: 20,
+    width: 80,
+    alignSelf: "center"
+  }
 });

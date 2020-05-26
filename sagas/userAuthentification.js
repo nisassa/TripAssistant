@@ -4,12 +4,12 @@ import {
     takeLatest, 
     all, 
 } from 'redux-saga/effects';
-import * as api from '../../api/user'
+import * as api from '../api/user'
 
 function * onCreate (action) {
     yield put({type: "USER_AUTH_START_PROCESSING_DATA"});
     try {
-        const result = yield call(api.createUserAccount, action.userAccount);
+        const result = yield call(api.createUserAccount, action.userAccount);  
         const message = result.message || "An error occurred. Please verify if you filled in the correct information.";
         if (result.status === "OK") {
             yield put({ type: "REGISTER_NEW_ACCOUNT_SUCCESS", message: message, token: result.user._id}); 
@@ -26,7 +26,6 @@ function * onLoginAttemt (action) {
     yield put({type: "USER_AUTH_START_PROCESSING_DATA"});
     try {
         const result = yield call(api.loginAttemt, action.userAccount);
-        
         const message = result.message || "An error occurred. Please verify if you filled in the correct information.";
         if (result.status === "OK") {
             yield put({ type: "REGISTER_NEW_ACCOUNT_SUCCESS", message: message, token: result.token}); 

@@ -14,7 +14,7 @@ function AppOherScreen() {
 function mapStateToProps (state, props) {
     return {
     }
-    }
+}
 
 function mapDispatchToProps(dispatch) {
     return {
