@@ -4,14 +4,49 @@ import {
     Modal,
     TouchableWithoutFeedback,
     View,
+    Text,
+    TouchableOpacity
 } from 'react-native';
 import { globalStyles } from '../../assets/styles/global';
+import { tripStyles } from '../../assets/styles/trips';
 import  AppHeader from '../header';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 function AddNewTrip (props) {
+    
+    const changeTripPurpose = (newValue) => {
+        props.changeTripPurpose(newValue)
+    }
+
     const toggleModal = () => {
-        props.toggleAddNewTripModal(false)
+        if (props.purposeOfTrip !== false) {
+            props.changeTripPurpose(false)
+        } else {
+            props.toggleAddNewTripModal(false)
+        }
+    }
+    
+    const askPurposeOfTrip = () => {
+        if (props.purposeOfTrip === false) {
+            return (
+                <View style={tripStyles.tripTypeContainer}>
+                    <Text style={tripStyles.tripPurpose}> What is the purpose {"\n"}of your trip? </Text>
+                    <TouchableOpacity onPress={ () => changeTripPurpose("Travelling") }>
+                        <Text style={tripStyles.tripTypebutton} > Travelling </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={ () => changeTripPurpose("Commuting") }>
+                        <Text style={tripStyles.tripTypebutton} > Commuting </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={ () => changeTripPurpose("Business travel") }>
+                        <Text style={tripStyles.tripTypebutton} > Business travel </Text>
+                    </TouchableOpacity>
+                </View>
+            )
+        } else {
+            return (
+                <Text>Render the form fro {props.purposeOfTrip}</Text>    
+            )
+        }
     }
     return (
         <Modal
@@ -28,7 +63,7 @@ function AddNewTrip (props) {
                 }
             />
             <View style={globalStyles.container}>
-                
+                { askPurposeOfTrip() }
             </View>
         </Modal>
     )
@@ -36,17 +71,18 @@ function AddNewTrip (props) {
 
 function mapStateToProps (state) {
     return {
-        modalIsShown: state.tripsReducer.newTripModalshown
+        modalIsShown: state.tripsReducer.newTripModalShown,
+        purposeOfTrip: state.tripsReducer.purposeOfTrip
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         "toggleAddNewTripModal" : (newValue) => dispatch({ 
-            type: "NEW_TRIP_MODAL_TOGGLE", 
-            payload: { 
-                value : newValue 
-            }
+            type: "NEW_TRIP_MODAL_TOGGLE",  payload: { value : newValue }
+        }),
+        "changeTripPurpose" : (newValue) => dispatch({ 
+            type: "CHANGE_TRIP_PURPOSE", payload: { value : newValue }
         })
     }
 }

@@ -6,8 +6,7 @@ export const globalStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: '#f8f9fa',
-    paddingHorizontal: 20,
-    paddingTop: 40
+    paddingTop: 20
   },
   touchableOpacityCenter: {
     borderWidth:1,
@@ -37,7 +36,7 @@ export const globalStyles = StyleSheet.create({
     alignSelf: "center",
   },
   goBackButtton: {
-    fontSize: 50,
+    fontSize: 35,
     paddingHorizontal: 20,
     width: 80,
     alignSelf: "center"

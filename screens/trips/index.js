@@ -41,10 +41,7 @@ function mapStateToProps (state, props) {
 function mapDispatchToProps(dispatch) {
     return {
         "toggleAddNewTripModal" : (newValue) => dispatch({ 
-            type: "NEW_TRIP_MODAL_TOGGLE", 
-            payload: { 
-                value : newValue 
-            }
+            type: "NEW_TRIP_MODAL_TOGGLE", payload: { value : newValue }
         })
     }
 }
