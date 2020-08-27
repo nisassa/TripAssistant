@@ -11,6 +11,7 @@ import { globalStyles } from '../../assets/styles/global';
 import { tripStyles } from '../../assets/styles/trips';
 import  AppHeader from '../header';
 import Icon from 'react-native-vector-icons/Ionicons';
+import TravelForm from './forms/travelForm';
 
 function AddNewTrip (props) {
     
@@ -43,14 +44,18 @@ function AddNewTrip (props) {
                 </View>
             )
         } else {
-            return (
-                <Text>Render the form fro {props.purposeOfTrip}</Text>    
-            )
+            if (props.purposeOfTrip === "Travelling" || props.purposeOfTrip === "Business travel") {
+                return <TravelForm />
+            } else {
+                return (
+                    <Text>Render the form for {props.purposeOfTrip}</Text>    
+                )
+            }
         }
     }
     return (
         <Modal
-            animationType="fade"
+            animationType="slide"
             transparent={true}
             visible={props.modalIsShown}
         >
@@ -72,7 +77,7 @@ function AddNewTrip (props) {
 function mapStateToProps (state) {
     return {
         modalIsShown: state.tripsReducer.newTripModalShown,
-        purposeOfTrip: state.tripsReducer.purposeOfTrip
+        purposeOfTrip: state.tripsReducer.newTrip.purposeOfTrip
     }
 }
 
@@ -83,7 +88,7 @@ function mapDispatchToProps(dispatch) {
         }),
         "changeTripPurpose" : (newValue) => dispatch({ 
             type: "CHANGE_TRIP_PURPOSE", payload: { value : newValue }
-        })
+        }),
     }
 }
 

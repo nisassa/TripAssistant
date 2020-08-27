@@ -23,6 +23,7 @@ export const tripStyles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "darkgray",
     alignSelf: "stretch",
-    textAlign: "center"
+    textAlign: "center",
+    backgroundColor: '#fff'
   }
 })

@@ -12,7 +12,7 @@ function * onCreate (action) {
         const result = yield call(api.createUserAccount, action.userAccount);  
         const message = result.message || "An error occurred. Please verify if you filled in the correct information.";
         if (result.status === "OK") {
-            yield put({ type: "REGISTER_NEW_ACCOUNT_SUCCESS", message: message, token: result.token}); 
+            yield put({ type: "REGISTER_NEW_ACCOUNT_SUCCESS", message: message, token: result.token, userId: result.userId}); 
         } else {
             yield put({ type: "AUTH_REQUST_FAILED", message: message});
         } 
@@ -28,7 +28,7 @@ function * onLoginAttemt (action) {
         const result = yield call(api.loginAttemt, action.userAccount);
         const message = result.message || "An error occurred. Please verify if you filled in the correct information.";
         if (result.status === "OK") {
-            yield put({ type: "REGISTER_NEW_ACCOUNT_SUCCESS", message: message, token: result.token}); 
+            yield put({ type: "REGISTER_NEW_ACCOUNT_SUCCESS", message: message, token: result.token, userId: result.userId}); 
         } else {
             yield put({ type: "AUTH_REQUST_FAILED", message: message});
         } 

@@ -1,13 +1,12 @@
-import React from 'react';
+import React from 'react'
 import { 
     View,
     TouchableOpacity,
-} from 'react-native';
-import { connect } from 'react-redux';
-import { globalStyles } from '../../assets/styles/global';
+} from 'react-native'
+import { connect } from 'react-redux'
+import { globalStyles } from '../../assets/styles/global'
 import { Icon } from 'react-native-elements'
 import AddNewTrip from './newTripModal'
-
 
 function AppTripsScreen(props) {
 
@@ -33,8 +32,9 @@ function AppTripsScreen(props) {
     )
 }
 
-function mapStateToProps (state, props) {
+function mapStateToProps (state) {
     return {
+        
     }
 }
 

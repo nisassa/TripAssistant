@@ -7,7 +7,7 @@ let defaultHeaders = {
 
 export default function request (path, args = {}) {
   const url = `${API_URL}/${path}`
-
+  console.log("request URL: " + url);
   const options = {
     headers: defaultHeaders,
     method: args.method || 'POST'

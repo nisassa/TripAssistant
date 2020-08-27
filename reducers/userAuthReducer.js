@@ -1,6 +1,7 @@
 const initialState = {
   userAccount: {},
-  authToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZWQyNGM4OWM2NjU3MmIxM2RmMzQ2NjAiLCJpYXQiOjE1OTA4NjQ1NDMsImV4cCI6MTY1MTM0NDU0M30.zLBgC6y_8puWdepnj79jalS2rolVswhyZHPFnvVZtvM",
+  userId: "5ed24c89c66572b13df34660",
+  authToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZWQyNGM4OWM2NjU3MmIxM2RmMzQ2NjAiLCJpYXQiOjE1OTgzNjQ1ODUsImV4cCI6MTY1ODg0NDU4NX0.jBesqXmYvr6VkEO3e4cONeHoPW8pY5U-TciIkwGOe-I",
   authRequestProcessing: false,
   serverMessage: false,
   tokenVerified: false 
@@ -37,6 +38,7 @@ const userAuthReducer = (state = initialState, action) => {
           serverMessage: action.message,
           authToken: action.token,
           tokenVerified: true,
+          userId: action.userId
         }
     case "AUTH_REQUST_FAILED":
       return { 

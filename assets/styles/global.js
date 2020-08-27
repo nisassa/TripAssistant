@@ -6,7 +6,6 @@ export const globalStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: '#f8f9fa',
-    paddingTop: 20
   },
   touchableOpacityCenter: {
     borderWidth:1,
@@ -24,11 +23,11 @@ export const globalStyles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 2,
     },
     shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 4,
+    shadowRadius: 3.65,
+    elevation: 2,
   },
   addButton: {
     flex: 1,
