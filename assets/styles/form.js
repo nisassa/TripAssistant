@@ -41,12 +41,11 @@ export const formStyle = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5
   },
-  tripContainer: {
-    paddingVertical: 10
-  },
   simpleText: {
-    fontSize: 16,
-    marginLeft: 10
+    fontSize: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    fontWeight: "bold"
   },
   modalContainer: {
     flex: 1,
@@ -109,5 +108,37 @@ export const formStyle = StyleSheet.create({
   },
   fullWidhtContainer: {
     width: '100%'
+  },
+  itemView: {
+    backgroundColor: "white",
+    width: '100%',
+    marginTop: 10,
+    paddingBottom: 5,
+    paddingTop: 5,
+    alignContent: "flex-start",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+  },
+  airpportCode: {
+    fontSize: 22,
+    fontWeight: "bold",
+  },
+  flightNumber: {
+    fontSize: 16,
+    fontWeight: "bold"
+  },
+  inlineBlock: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: 10
+  },
+  depTime: {
+    fontSize: 14
+  },
+  removeBtn: {
+    color: 'red',
+    paddingLeft: 5,
+    paddingRight:5
   }
 })

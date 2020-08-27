@@ -6,6 +6,7 @@ const initialState = {
     newTripModalShown: false,
     newTrip: {
         id: null,  
+        name: null,
         isDateTimePickerShown: false,
         purposeOfTrip: false,
         itemToAdd: {
@@ -13,9 +14,47 @@ const initialState = {
             departureDate: "",
             flightNumber: ""
         },
-        items:{
-            flights : []
-        },
+        items:[{
+            type: 'flight',
+            data: {
+                _id: '534556566455',
+                carrierFsCode: 'BA',
+                flightNumber: '206',
+                departureAirportFsCode: 'MIA',
+                arrivalAirportFsCode: 'LHR',
+                departureTime: '2021-07-24T17:05:00.000',
+                arrivalTime: '2021-07-25T06:40:00.000',
+                stops: 0,
+                arrivalTerminal: '3',
+                flightEquipmentIataCode: '777',
+                isCodeshare: false,
+                isWetlease: false,
+                serviceType: '',
+                serviceClasses: [],
+                trafficRestrictions: [],
+                codeshares: [],
+            }
+        }, {
+            type: 'flight',
+            data: {
+                _id: '53453455',
+                carrierFsCode: 'BA',
+                flightNumber: '206',
+                departureAirportFsCode: 'MIA',
+                arrivalAirportFsCode: 'LHR',
+                departureTime: '2021-07-24T17:05:00.000',
+                arrivalTime: '2021-07-25T06:40:00.000',
+                stops: 0,
+                arrivalTerminal: '3',
+                flightEquipmentIataCode: '777',
+                isCodeshare: false,
+                isWetlease: false,
+                serviceType: '',
+                serviceClasses: [],
+                trafficRestrictions: [],
+                codeshares: [],
+            }
+        }],
     }
 }
 
@@ -74,13 +113,13 @@ const tripsReducer = (state = initialState, action) => {
                 newTrip: {
                     ...state.newTrip,
                     id: action.tripId,
+                    name: action.tripName,
                     itemToAdd: {
                         ...state.newTrip.itemToAdd,
                     }
                 }
             }
         case "ADDED_NEW_TRIP_ITEM" : {      
-            
             return {
                 ...state,
                 hasError: false,
@@ -88,20 +127,20 @@ const tripsReducer = (state = initialState, action) => {
                 newTrip: {
                     ...state.newTrip,
                     id: action.tripId,
+                    name: action.tripName,
                     isDateTimePickerShown: false,
                     itemToAdd: {
                         itemType: "",
                         departureDate: "",
                         flightNumber: ""
                     },
-                    items: { 
+                    items: [ 
                         ...state.newTrip.items,
-                        flights : [
-                            ...state.newTrip.items.flights,
-                            action.data.item
-                            
-                        ]
-                    }
+                        {
+                            type: action.data.itemType,
+                            data: action.data.item
+                        }
+                    ]
                 },
             }
         }

@@ -24,7 +24,7 @@ const FlightItem = (props) => {
 
     return (
         <TouchableWithoutFeedback
-            // onPress={Keyboard.dismiss()} 
+            onPress={Keyboard.dismiss} 
             accessible={false} 
             >
             <KeyboardAvoidingView style={formStyle.tripItemContainer}> 

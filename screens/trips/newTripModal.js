@@ -60,7 +60,7 @@ function AddNewTrip (props) {
             visible={props.modalIsShown}
         >
             <AppHeader 
-                headerTitle="Add New Trip"
+                headerTitle="Create New Trip"
                 leftComponent={
                     <TouchableWithoutFeedback onPress={ toggleModal }>
                         <Icon name={'ios-arrow-round-back'} style={globalStyles.goBackButtton} />

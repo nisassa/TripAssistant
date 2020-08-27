@@ -1,22 +1,34 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from 'react'
+import { connect } from 'react-redux'
 import {
     ScrollView,
     TouchableOpacity,
     View,
     Text,
-    SafeAreaView
-} from 'react-native';
-import { formStyle } from '../../../assets/styles/form';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import AddItemModal from './addItem';
+    SafeAreaView,
+    FlatList
+} from 'react-native'
+import { formStyle } from '../../../assets/styles/form'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import AddItemModal from './addItem'
+import Moment from 'moment'
 
 function TravelForm (props) {
-    console.log( "flights" + props.tripsReducer.newTrip.items.flights)
-    console.log(props.tripsReducer.newTrip.items)
+    
+    Moment.locale('en');
 
     const addNewItem = (newValue) => {
         props.updateItemValue('itemType', newValue)
+    }
+
+    const getTripItems = () => {    
+        let result = props.tripItems.map((item) => {
+            if (item.type == 'flight') {
+                return {data: item.data, key: item.data._id};
+            }
+        })
+        return result
     }
 
     return (
@@ -50,9 +62,36 @@ function TravelForm (props) {
                     </TouchableOpacity>
                 </ScrollView>
             </View>
-            <ScrollView style={formStyle.tripContainer}>
-                <Text style={formStyle.simpleText} >Trip items:</Text>
-            </ScrollView>
+            <Text style={formStyle.simpleText} >{ props.newTrip.name || 'Name your trip'}</Text>
+            { props.tripItems.length > 0 && <FlatList
+                    data = {getTripItems()}
+                    renderItem={({item}) => 
+                        <View style={formStyle.itemView}>
+                            <View style={formStyle.inlineBlock} >
+                                <MaterialCommunityIcons name='airplane-takeoff' size={40}/>
+                                <Text style={formStyle.flightNumber}>{item.data.carrierFsCode} {item.data.flightNumber}</Text>
+                            </View>
+                            <View style={formStyle.inlineBlock} >
+                                <Text style={formStyle.airpportCode}>{item.data.departureAirportFsCode}</Text>
+                                <Text style={formStyle.depTime}>{Moment(item.data.departureTime).format('H:mm DMMMYY')}</Text>
+                                <Text>Terminal: {item.data.departureTerminal || 'N/a' }</Text>
+                            </View>
+                            <View style={formStyle.inlineBlock} >
+                                <MaterialCommunityIcons name='airplane-landing' size={40}/>
+                                <Text style={formStyle.flightNumber}>&nbsp;</Text>
+                            </View>
+                            <View style={formStyle.inlineBlock} >
+                                <Text style={formStyle.airpportCode}>{item.data.arrivalAirportFsCode} </Text>
+                                <Text style={formStyle.depTime}>{Moment(item.data.arrivalTime).format('H:mm DMMMYY')}</Text>
+                                <Text>Terminal: {item.data.arrivalTerminal || 'N/a' }</Text>
+                            </View>
+                            <TouchableOpacity style={formStyle.inlineBlock} >
+                                <Ionicons style={formStyle.removeBtn} name="ios-trash" size={40} /> 
+                            </TouchableOpacity>
+                        </View>
+                    }
+                />
+            }
         </SafeAreaView>
     )
 }
@@ -61,7 +100,7 @@ function mapStateToProps (state) {
     return {
         newTrip:        state.tripsReducer.newTrip, 
         modalIsShown:   state.tripsReducer.newTripModalShown,
-        tripsReducer:   state.tripsReducer
+        tripItems:      state.tripsReducer.newTrip.items
     }
 }
 

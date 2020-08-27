@@ -12,9 +12,18 @@ function * onCreateItem (action) {
         const result = yield call(api.addTripItem, action);
         const message = result.message || "An error occurred. Please verify if you filled in the correct information.";
         if (result.status === "OK") {
-            yield put({ type: "ADDED_NEW_TRIP_ITEM", message: message, tripId: result.tripId, data: result.item}); 
+            yield put({ 
+                type: "ADDED_NEW_TRIP_ITEM", 
+                message: message, 
+                tripId: result.tripId, 
+                tripName: result.tripName,
+                data: result.item }); 
         } else {
-            yield put({ type: "FAILED_TO_ADD_NEW_TRIP_ITEM", message: message, tripId: result.tripId});
+            yield put({ 
+                type: "FAILED_TO_ADD_NEW_TRIP_ITEM", 
+                message: message, 
+                tripName: result.tripName,
+                tripId: result.tripId});
         } 
     } catch (error) {
         yield put({ type: "FAILED_TO_ADD_NEW_TRIP_ITEM", message: "Something went wrong, please try again ot contact our support team."});
