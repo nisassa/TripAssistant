@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 import { formStyle } from '../../../assets/styles/form'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import AddItemModal from './addItem'
 import Moment from 'moment'
@@ -22,10 +23,16 @@ function TravelForm (props) {
         props.updateItemValue('itemType', newValue)
     }
 
+    const removeItem = (id, type, stateId) => {
+        props.removeItem(id, type, stateId)
+    }
+
     const getTripItems = () => {    
-        let result = props.tripItems.map((item) => {
-            if (item.type == 'flight') {
-                return {data: item.data, key: item.data._id};
+        let result = props.tripItems[props.newTrip.purposeOfTrip].map((item, index) => {
+            if (item.hasOwnProperty('type')) {
+                if (item.type == 'flight' && item.data.trip == props.newTrip.id) {
+                    return {data: item.data, key: item.data._id, index: index};
+                }
             }
         })
         return result
@@ -62,8 +69,9 @@ function TravelForm (props) {
                     </TouchableOpacity>
                 </ScrollView>
             </View>
-            <Text style={formStyle.simpleText} >{ props.newTrip.name || 'Name your trip'}</Text>
-            { props.tripItems.length > 0 && <FlatList
+            <Text style={formStyle.simpleText} >{ props.newTrip.name || 'Name your trip'} <EvilIcons name="pencil" size={30} color="cornflowerblue" /></Text>
+            { props.tripItems[props.newTrip.purposeOfTrip].length == 0 && <ScrollView><Text style={ {marginLeft: 10}} >&nbsp;</Text></ScrollView>}
+            { props.tripItems[props.newTrip.purposeOfTrip].length > 0 && <FlatList
                     data = {getTripItems()}
                     renderItem={({item}) => 
                         <View style={formStyle.itemView}>
@@ -78,14 +86,14 @@ function TravelForm (props) {
                             </View>
                             <View style={formStyle.inlineBlock} >
                                 <MaterialCommunityIcons name='airplane-landing' size={40}/>
-                                <Text style={formStyle.flightNumber}>&nbsp;</Text>
+                                <Text style={formStyle.flightNumber}>Eq. {item.data.flightEquipmentIataCode}</Text>
                             </View>
                             <View style={formStyle.inlineBlock} >
                                 <Text style={formStyle.airpportCode}>{item.data.arrivalAirportFsCode} </Text>
                                 <Text style={formStyle.depTime}>{Moment(item.data.arrivalTime).format('H:mm DMMMYY')}</Text>
                                 <Text>Terminal: {item.data.arrivalTerminal || 'N/a' }</Text>
                             </View>
-                            <TouchableOpacity style={formStyle.inlineBlock} >
+                            <TouchableOpacity onPress={ () => removeItem(item.data._id, 'flight', item.index)} style={formStyle.inlineBlock} >
                                 <Ionicons style={formStyle.removeBtn} name="ios-trash" size={40} /> 
                             </TouchableOpacity>
                         </View>
@@ -108,6 +116,9 @@ function mapDispatchToProps(dispatch) {
     return {
         "updateItemValue" : (itemType, newValue) => dispatch({
             type: "UPDATE_ITEM_VALUE",  payload: { value : newValue, item:  itemType}
+        }),
+        removeItem : (id, type, stateIndex) =>  dispatch({
+            type: "DELETE_ITEM_TO_ADD", payload: { id: id, type: type, stateIndex: stateIndex}
         })
     }
 }

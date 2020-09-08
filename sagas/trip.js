@@ -6,6 +6,19 @@ import {
 } from 'redux-saga/effects';
 import * as api from '../api/trip'
 
+function * onDeleteItem(action) {
+    yield put({type: "TRIP_START_PROCESSING_DATA"})
+    try {
+        const result = yield call(api.deleteTripItem, action);
+        if (result.status === "OK") {
+            yield put({type: "REMOVED_NEW_TRIP_ITEM", stateIndex: action.payload.stateIndex, itemType: action.payload.type})   
+        } 
+    } catch (error) {
+        yield put({ type: "FAILED_TO_ADD_NEW_TRIP_ITEM", message: "Something went wrong, please try again ot contact our support team."});
+    }  
+    yield put({type: "TRIP_STOP_PROCESSING_DATA"})
+}
+
 function * onCreateItem (action) {
     yield put({type: "TRIP_START_PROCESSING_DATA"})
     try {
@@ -17,7 +30,8 @@ function * onCreateItem (action) {
                 message: message, 
                 tripId: result.tripId, 
                 tripName: result.tripName,
-                data: result.item }); 
+                data: result.item,
+                tripPurpose: action.tripPurpose }); 
         } else {
             yield put({ 
                 type: "FAILED_TO_ADD_NEW_TRIP_ITEM", 
@@ -31,8 +45,9 @@ function * onCreateItem (action) {
     yield put({type: "TRIP_STOP_PROCESSING_DATA"})
 }
 
-export default function * watchUser () {
+export default function * watchTrip () {
   yield all([
     takeLatest("REGISTER_NEW_TRIP_ITEM", onCreateItem),
+    takeLatest("DELETE_ITEM_TO_ADD", onDeleteItem)
   ])
 }

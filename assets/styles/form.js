@@ -45,7 +45,8 @@ export const formStyle = StyleSheet.create({
     fontSize: 20,
     paddingHorizontal: 10,
     paddingVertical: 10,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    color: "cornflowerblue"
   },
   modalContainer: {
     flex: 1,

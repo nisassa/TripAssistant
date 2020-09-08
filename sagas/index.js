@@ -7,6 +7,5 @@ export default function* rootSaga() {
   yield all([
     fork(watchUser),
     fork(watchTrip),
-    
   ])
 }

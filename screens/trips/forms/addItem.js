@@ -16,7 +16,7 @@ import AnimatedLoader from "react-native-animated-loader"
 function AddItem (props) {
     
     const handleAddItem = () => {    
-        props.registerNewTripItem(props.newTrip.itemToAdd, props.newTrip.id, props.userId)
+        props.registerNewTripItem(props.newTrip.itemToAdd, props.newTrip.id, props.userId, props.newTrip.purposeOfTrip)
     }
 
     const showErrorMessage = () => {
@@ -88,11 +88,12 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        "registerNewTripItem": (item, tripId, userID) => dispatch({
+        "registerNewTripItem": (item, tripId, userID, purpose) => dispatch({
             type: 'REGISTER_NEW_TRIP_ITEM',
             item: item,
             tripId: tripId,
-            userId: userID
+            userId: userID,
+            tripPurpose: purpose
         }),
         "updateItemValue" : (item, value) => dispatch({
             type: "UPDATE_ITEM_VALUE",  payload: { value : value, item:  item}

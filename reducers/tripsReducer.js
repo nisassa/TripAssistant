@@ -14,47 +14,11 @@ const initialState = {
             departureDate: "",
             flightNumber: ""
         },
-        items:[{
-            type: 'flight',
-            data: {
-                _id: '534556566455',
-                carrierFsCode: 'BA',
-                flightNumber: '206',
-                departureAirportFsCode: 'MIA',
-                arrivalAirportFsCode: 'LHR',
-                departureTime: '2021-07-24T17:05:00.000',
-                arrivalTime: '2021-07-25T06:40:00.000',
-                stops: 0,
-                arrivalTerminal: '3',
-                flightEquipmentIataCode: '777',
-                isCodeshare: false,
-                isWetlease: false,
-                serviceType: '',
-                serviceClasses: [],
-                trafficRestrictions: [],
-                codeshares: [],
-            }
-        }, {
-            type: 'flight',
-            data: {
-                _id: '53453455',
-                carrierFsCode: 'BA',
-                flightNumber: '206',
-                departureAirportFsCode: 'MIA',
-                arrivalAirportFsCode: 'LHR',
-                departureTime: '2021-07-24T17:05:00.000',
-                arrivalTime: '2021-07-25T06:40:00.000',
-                stops: 0,
-                arrivalTerminal: '3',
-                flightEquipmentIataCode: '777',
-                isCodeshare: false,
-                isWetlease: false,
-                serviceType: '',
-                serviceClasses: [],
-                trafficRestrictions: [],
-                codeshares: [],
-            }
-        }],
+        items: {
+            "Travelling": [],
+            "Business travel": [],
+            "Commuting": []
+        },
     }
 }
 
@@ -134,13 +98,16 @@ const tripsReducer = (state = initialState, action) => {
                         departureDate: "",
                         flightNumber: ""
                     },
-                    items: [ 
+                    items: {
                         ...state.newTrip.items,
-                        {
-                            type: action.data.itemType,
-                            data: action.data.item
-                        }
-                    ]
+                        [action.tripPurpose]: [
+                            ...state.newTrip.items[action.tripPurpose],
+                            {
+                                type: action.data.itemType,
+                                data: action.data.item
+                            }
+                        ]
+                    }
                 },
             }
         }
@@ -149,6 +116,21 @@ const tripsReducer = (state = initialState, action) => {
                 ...state,
                 hasError: false,
                 errorMessage: null,
+            }
+        }
+        case "REMOVED_NEW_TRIP_ITEM": {
+            return {
+                ...state,
+                newTrip: {
+                    ...state.newTrip,
+                    items: {
+                        ...state.newTrip.items,
+                        [state.newTrip.purposeOfTrip]: [
+                            ...state.newTrip.items[state.newTrip.purposeOfTrip].slice(0, action.stateIndex),
+                            ...state.newTrip.items[state.newTrip.purposeOfTrip].slice(action.stateIndex + 1),
+                        ]
+                    }
+                },
             }
         }
         default:
